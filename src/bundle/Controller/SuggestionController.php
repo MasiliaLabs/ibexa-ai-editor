@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Masilia\Bundle\IbexaAiEditor\Controller;
 
 use Locale;
-use Masilia\Contracts\IbexaAi\Http\ApiRequest;
-use Masilia\Contracts\IbexaAi\Security\Access;
-use Masilia\Contracts\IbexaAi\Security\RequiresAccess;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Masilia\Contracts\IbexaAi\Http\CsrfProtectedController;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Masilia\IbexaAiEditor\Ibexa\ContentContextReader;
 use Masilia\IbexaAiEditor\Ibexa\SuggestionRequestFactory;
 use Masilia\IbexaAiEditor\Llm\TextGeneratorFactory;
@@ -21,6 +22,7 @@ use Masilia\IbexaAiEditor\Suggestion\SuggestionService;
 use Masilia\IbexaAiEditor\Suggestion\SupportedField;
 use Masilia\IbexaAiEditor\Suggestion\UnsupportedFieldException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +36,7 @@ use Throwable;
  * Request and response shapes match the current admin front, so it keeps
  * working while the Ibexa 5 front is being updated.
  */
-final readonly class SuggestionController
+final class SuggestionController extends Controller implements CsrfProtectedController
 {
     /** Shown to the editor for any backend failure; the detail only goes to the log. */
     private const GENERIC_SERVICE_ERROR = 'The AI service is currently unavailable. Please try again later or contact an administrator.';
@@ -42,16 +44,24 @@ final readonly class SuggestionController
     private const GENERIC_OUTPUT_ERROR = 'The AI model returned an unusable answer. Please try again.';
 
     public function __construct(
-        private ApiRequest $api,
-        private ContentContextReader $contents,
-        private SuggestionRequestFactory $requests,
-        private TextGeneratorFactory $generators,
-        private LoggerInterface $aiLogger,
-        private SseEncoder $sse = new SseEncoder(),
+        private readonly SiteAccessServiceInterface $siteAccess,
+        private readonly ContentContextReader $contents,
+        private readonly SuggestionRequestFactory $requests,
+        private readonly TextGeneratorFactory $generators,
+        private readonly LoggerInterface $aiLogger,
+        private readonly SseEncoder $sse = new SseEncoder(),
     ) {
     }
 
-    #[Route('/admin/api/ai/field-types', name: 'masilia.ibexa_ai.field_types', methods: ['GET'])]
+    /** What the editing form shows: the buttons of the form are for who may edit contents. */
+    public function performAccessCheck(): void
+    {
+        parent::performAccessCheck();
+        $this->denyAccessUnlessGranted(new Attribute('content', 'edit'));
+    }
+
+
+    #[Route('/api/ai/field-types', name: 'masilia.ibexa_ai.field_types', methods: ['GET'], options: ['expose' => true])]
     public function fieldTypes(): JsonResponse
     {
         return new JsonResponse(['fieldTypes' => [
@@ -64,8 +74,7 @@ final readonly class SuggestionController
         ]]);
     }
 
-    #[RequiresAccess(Access::ContentEditor)]
-    #[Route('/admin/api/ai/languages/{contentId}', name: 'masilia.ibexa_ai.languages', requirements: ['contentId' => '\d+'], methods: ['GET'])]
+    #[Route('/api/ai/languages/{contentId}', name: 'masilia.ibexa_ai.languages', requirements: ['contentId' => '\d+'], methods: ['GET'], options: ['expose' => true])]
     public function languages(int $contentId): JsonResponse
     {
         $content = $this->contents->load($contentId, 'for language list');
@@ -85,14 +94,13 @@ final readonly class SuggestionController
         return new JsonResponse(['languages' => $languages]);
     }
 
-    #[RequiresAccess(Access::ContentEditor)]
-    #[Route('/admin/api/ai/suggest', name: 'masilia.ibexa_ai.suggest', methods: ['POST'])]
+    #[Route('/api/ai/suggest', name: 'masilia.ibexa_ai.suggest', methods: ['POST'], options: ['expose' => true])]
     public function suggest(Request $request): JsonResponse
     {
         try {
             $payload = SuggestionPayload::fromArray($this->decode($request));
             $suggestionRequest = $this->requests->build($payload);
-            $suggestion = (new SuggestionService($this->generators->create($this->api->siteaccess())))->suggest($suggestionRequest);
+            $suggestion = (new SuggestionService($this->generators->create($this->siteAccess->getCurrent()->name)))->suggest($suggestionRequest);
         } catch (Throwable $e) {
             [$error, $status] = $this->errorFor($e);
 
@@ -105,8 +113,7 @@ final readonly class SuggestionController
         ]);
     }
 
-    #[RequiresAccess(Access::ContentEditor)]
-    #[Route('/admin/api/ai/suggest/stream', name: 'masilia.ibexa_ai.suggest_stream', methods: ['POST'])]
+    #[Route('/api/ai/suggest/stream', name: 'masilia.ibexa_ai.suggest_stream', methods: ['POST'], options: ['expose' => true])]
     public function suggestStream(Request $request): StreamedResponse
     {
         $headers = ['Content-Type' => 'text/event-stream', 'Cache-Control' => 'no-cache', 'X-Accel-Buffering' => 'no'];
@@ -114,7 +121,7 @@ final readonly class SuggestionController
         try {
             $payload = SuggestionPayload::fromArray($this->decode($request));
             $suggestionRequest = $this->requests->build($payload);
-            $service = new SuggestionService($this->generators->create($this->api->siteaccess()));
+            $service = new SuggestionService($this->generators->create($this->siteAccess->getCurrent()->name));
             $format = $suggestionRequest->outputFormat()->value;
         } catch (Throwable $e) {
             [$error, $status] = $this->errorFor($e);
@@ -147,7 +154,11 @@ final readonly class SuggestionController
      */
     private function decode(Request $request): array
     {
-        return $this->api->json($request) ?? throw new InvalidSuggestionRequestException('Invalid JSON payload');
+        try {
+            return $request->getPayload()->all();
+        } catch (BadRequestException) {
+            throw new InvalidSuggestionRequestException('Invalid JSON payload');
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-import { FIELD_TYPES_URL } from './constants.js';
+import { FIELD_TYPES_ROUTE } from './constants.js';
 
 /**
  * Immediate fallback used before (or if) the authoritative list is fetched
@@ -30,7 +30,7 @@ export const getSupportedFields = () => window.AI_SUPPORTED_FIELDS || DEFAULT_SU
  * @param {() => void} onUpdate  Called when the map is updated.
  */
 export function fetchSupportedFields(onUpdate) {
-    fetch(FIELD_TYPES_URL, { headers: { Accept: 'application/json' } })
+    fetch(window.Routing.generate(FIELD_TYPES_ROUTE), { headers: { Accept: 'application/json' } })
         .then((res) => (res.ok ? res.json() : null))
         .then((data) => {
             const map = data && data.fieldTypes;

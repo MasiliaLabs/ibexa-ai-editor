@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Masilia\IbexaAiEditor\Suggestion;
 
 /**
- * Validated client payload of POST /admin/api/ai/suggest(/stream).
+ * Validated client payload of POST /api/ai/suggest(/stream).
  *
  * Accepts the payload the current admin front sends (no `action`, the quick
  * action text is sent as `prompt`) and the explicit form (`action` id).

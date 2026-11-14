@@ -2,29 +2,28 @@
  * HTTP calls of the suggestion modal. Routes are defined by SuggestionController and ImageController.
  */
 
+import { adminHeaders, route } from '../shared/admin';
 import type { GeneratedImage, Language } from './types';
-
-const BASE = '/admin/api/ai';
 
 /**
  * Starts the suggestion stream. The answer is an event stream even for an error (suggestion.error), so the
  * caller reads it with readSuggestionEvents whatever the status.
  */
 export function openSuggestionStream(body: Record<string, unknown>, signal: AbortSignal): Promise<Response> {
-    return fetch(`${BASE}/suggest/stream`, {
+    return fetch(route('masilia.ibexa_ai.suggest_stream'), {
         method: 'POST',
         credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
+        headers: adminHeaders({ 'Content-Type': 'application/json', Accept: 'text/event-stream' }),
         body: JSON.stringify(body),
         signal,
     });
 }
 
 export async function requestImage(body: Record<string, unknown>, signal: AbortSignal): Promise<GeneratedImage> {
-    const response = await fetch(`${BASE}/generate-image`, {
+    const response = await fetch(route('masilia.ibexa_ai.generate_image'), {
         method: 'POST',
         credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: adminHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' }),
         body: JSON.stringify(body),
         signal,
     });
@@ -51,7 +50,7 @@ export async function requestImage(body: Record<string, unknown>, signal: AbortS
 /** Languages the content exists in, for the "translate from" choice. Empty when they cannot be loaded. */
 export async function loadLanguages(contentId: string, signal: AbortSignal): Promise<Language[]> {
     try {
-        const response = await fetch(`${BASE}/languages/${encodeURIComponent(contentId)}`, {
+        const response = await fetch(route('masilia.ibexa_ai.languages', { contentId }), {
             credentials: 'same-origin',
             headers: { Accept: 'application/json' },
             signal,

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Masilia\Bundle\IbexaAiEditor\Controller;
 
-use Masilia\Contracts\IbexaAi\Http\ApiRequest;
-use Masilia\Contracts\IbexaAi\Security\Access;
-use Masilia\Contracts\IbexaAi\Security\RequiresAccess;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Masilia\Contracts\IbexaAi\Http\CsrfProtectedController;
 use Masilia\IbexaAiEditor\Ibexa\ContentContextReader;
 use Masilia\Contracts\IbexaAi\Api\ApiError;
 use Masilia\IbexaAiEditor\Suggestion\PromptText;
@@ -24,26 +24,29 @@ use Throwable;
  * The prompt is enriched with the content type, title, field description and sibling fields,
  * so the picture matches the item it illustrates.
  */
-final readonly class ImageController
+final class ImageController extends Controller implements CsrfProtectedController
 {
     private const GENERIC_ERROR = 'The AI image generation service is currently unavailable. Please try again later or contact an administrator.';
 
     public function __construct(
-        private ApiRequest $api,
-        private ImageGenerator $images,
-        private ContentContextReader $contents,
-        private LoggerInterface $aiLogger,
+        private readonly ImageGenerator $images,
+        private readonly ContentContextReader $contents,
+        private readonly LoggerInterface $aiLogger,
     ) {
     }
 
-    #[RequiresAccess(Access::ContentEditor)]
-    #[Route('/admin/api/ai/generate-image', name: 'masilia.ibexa_ai.generate_image', methods: ['POST'])]
+    /** What the editing form shows: the buttons of the form are for who may edit contents. */
+    public function performAccessCheck(): void
+    {
+        parent::performAccessCheck();
+        $this->denyAccessUnlessGranted(new Attribute('content', 'edit'));
+    }
+
+
+    #[Route('/api/ai/generate-image', name: 'masilia.ibexa_ai.generate_image', methods: ['POST'], options: ['expose' => true])]
     public function generate(Request $request): JsonResponse
     {
-        $payload = $this->api->json($request);
-        if (!is_array($payload)) {
-            return new JsonResponse(ApiError::validation('Invalid JSON payload')->toArray(), Response::HTTP_BAD_REQUEST);
-        }
+        $payload = $request->getPayload()->all();
 
         $prompt = trim((string) ($payload['prompt'] ?? ''));
         if ($prompt === '') {

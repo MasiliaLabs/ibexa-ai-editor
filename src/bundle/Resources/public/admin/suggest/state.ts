@@ -229,7 +229,7 @@ export function canGenerate(state: SuggestState): boolean {
     return !isBusy(state) && generateBlocker(state) === null;
 }
 
-/** The body of POST /admin/api/ai/suggest/stream. */
+/** The body of POST /api/ai/suggest/stream. */
 export function requestBody(state: SuggestState): Record<string, unknown> {
     const context = state.context;
     if (context === null) {
@@ -253,7 +253,7 @@ export function requestBody(state: SuggestState): Record<string, unknown> {
     };
 }
 
-/** The body of POST /admin/api/ai/generate-image. */
+/** The body of POST /api/ai/generate-image. */
 export function imageRequestBody(state: SuggestState): Record<string, unknown> {
     const context = state.context;
     if (context === null) {

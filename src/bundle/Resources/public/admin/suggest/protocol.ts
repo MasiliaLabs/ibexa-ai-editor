@@ -1,5 +1,5 @@
 /**
- * Suggestion stream protocol, version 1 (POST /admin/api/ai/suggest/stream).
+ * Suggestion stream protocol, version 1 (POST /api/ai/suggest/stream).
  *
  *   event: suggestion.delta      data: {"v":1,"text":"…"}
  *   event: suggestion.completed  data: {"v":1,"format":"html"}

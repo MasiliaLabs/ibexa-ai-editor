@@ -18,5 +18,5 @@ export const SUGGEST_MODE = Object.freeze({
     APPEND: 'append',
 });
 
-/** The list of field types the server can write suggestions for. */
-export const FIELD_TYPES_URL = '/admin/api/ai/field-types';
+/** The route that lists the field types the server can write suggestions for. */
+export const FIELD_TYPES_ROUTE = 'masilia.ibexa_ai.field_types';
