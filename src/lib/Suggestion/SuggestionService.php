@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Masilia\IbexaAiEditor\Suggestion;
 
-use Masilia\Contracts\IbexaAi\Llm\ReasoningFilter;
+use Masilia\IbexaAiEditor\Llm\ReasoningFilter;
 use Generator;
 use Masilia\IbexaAiEditor\Llm\TextGenerator;
 

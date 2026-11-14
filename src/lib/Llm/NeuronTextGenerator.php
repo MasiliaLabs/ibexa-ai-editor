@@ -6,7 +6,6 @@ namespace Masilia\IbexaAiEditor\Llm;
 
 use Generator;
 use Masilia\IbexaAiEditor\Llm\TextGenerator;
-use Masilia\Contracts\IbexaAi\Observability\NullRequestLogger;
 use Masilia\Contracts\IbexaAi\Observability\RequestLog;
 use Masilia\Contracts\IbexaAi\Observability\RequestLogger;
 use NeuronAI\Chat\Messages\Stream\Chunks\TextChunk;
@@ -26,7 +25,7 @@ final readonly class NeuronTextGenerator implements TextGenerator
 {
     public function __construct(
         private AIProviderInterface $provider,
-        private RequestLogger $logger = new NullRequestLogger(),
+        private ?RequestLogger $logger = null,
         private string $providerIdentifier = '',
         private string $modelIdentifier = '',
         private ?string $siteaccess = null,
@@ -89,7 +88,7 @@ final readonly class NeuronTextGenerator implements TextGenerator
     {
         $usage = $response?->message()->getUsage();
 
-        $this->logger->log(new RequestLog(
+        $this->logger?->log(new RequestLog(
             providerIdentifier: $this->providerIdentifier,
             modelIdentifier: $this->modelIdentifier,
             siteaccess: $this->siteaccess,
@@ -103,7 +102,7 @@ final readonly class NeuronTextGenerator implements TextGenerator
 
     private function logFailure(int $start, Throwable $e): void
     {
-        $this->logger->log(new RequestLog(
+        $this->logger?->log(new RequestLog(
             providerIdentifier: $this->providerIdentifier,
             modelIdentifier: $this->modelIdentifier,
             siteaccess: $this->siteaccess,
