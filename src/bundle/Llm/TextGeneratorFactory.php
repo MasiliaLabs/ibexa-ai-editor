@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Masilia\Bundle\IbexaAiEditor\Llm;
 
-use Masilia\Bundle\IbexaAi\Observability\DoctrineRequestLogger;
+use Masilia\Contracts\IbexaAi\Observability\RequestLogger;
 use Masilia\Contracts\IbexaAi\Provider\ChatProviders;
 use Masilia\Contracts\IbexaAi\Provider\ProviderConfigurationException;
 use Masilia\IbexaAiEditor\Llm\TextGenerator;
@@ -17,7 +17,7 @@ final readonly class TextGeneratorFactory
 {
     public function __construct(
         private ChatProviders $chat,
-        private DoctrineRequestLogger $logger,
+        private RequestLogger $logger,
     ) {
     }
 

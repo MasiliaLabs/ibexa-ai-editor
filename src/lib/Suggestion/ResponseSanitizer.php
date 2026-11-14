@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Masilia\IbexaAiEditor\Suggestion;
 
-use Masilia\IbexaAi\Llm\ReasoningFilter;
+use Masilia\Contracts\IbexaAi\Llm\ReasoningFilter;
 /**
  * Cleans a model answer before it is handed back to the editor.
  *
