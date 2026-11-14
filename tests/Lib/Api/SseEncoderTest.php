@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Api;
+namespace Masilia\IbexaAiEditor\Tests\Lib\Api;
 
 use Masilia\Contracts\IbexaAi\Api\ApiError;
 use Masilia\IbexaAiEditor\Api\SseEncoder;

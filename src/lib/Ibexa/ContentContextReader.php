@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\Bundle\IbexaAiEditor\Ibexa;
+namespace Masilia\IbexaAiEditor\Ibexa;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;

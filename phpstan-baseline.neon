@@ -4,25 +4,25 @@ parameters:
 			message: '#^Instanceof between mixed and Ibexa\\Core\\FieldType\\TextBlock\\Value will always evaluate to false\.$#'
 			identifier: instanceof.alwaysFalse
 			count: 1
-			path: src/bundle/Ibexa/FieldValueReader.php
+			path: src/lib/Ibexa/FieldValueReader.php
 
 		-
 			message: '#^Using nullsafe property access "\?\-\>textContent" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
-			path: src/bundle/Ibexa/FieldValueReader.php
+			path: src/lib/Ibexa/FieldValueReader.php
 
 		-
 			message: '#^Call to an undefined method NeuronAI\\Chat\\Messages\\Message\:\:stopReason\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: src/bundle/Llm/NeuronTextGenerator.php
+			path: src/lib/Llm/NeuronTextGenerator.php
 
 		-
 			message: '#^Instanceof between NeuronAI\\Providers\\ProviderResponse and NeuronAI\\Providers\\ProviderResponse will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
-			path: src/bundle/Llm/NeuronTextGenerator.php
+			path: src/lib/Llm/NeuronTextGenerator.php
 
 		-
 			message: '#^Instanceof between Masilia\\IbexaAiEditor\\Suggestion\\SiblingField and Masilia\\IbexaAiEditor\\Suggestion\\SiblingField will always evaluate to true\.$#'

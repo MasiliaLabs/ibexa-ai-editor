@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\Bundle\IbexaAiEditor\Ibexa;
+namespace Masilia\IbexaAiEditor\Ibexa;
 
 use Masilia\IbexaAiEditor\Suggestion\InvalidSuggestionRequestException;
 use Masilia\IbexaAiEditor\Suggestion\SuggestionAction;

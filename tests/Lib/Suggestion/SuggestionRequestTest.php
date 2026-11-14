@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Suggestion;
+namespace Masilia\IbexaAiEditor\Tests\Lib\Suggestion;
 
 use Masilia\IbexaAiEditor\Suggestion\FieldFormat;
 use Masilia\IbexaAiEditor\Suggestion\InvalidSuggestionRequestException;

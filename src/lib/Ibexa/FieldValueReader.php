@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\Bundle\IbexaAiEditor\Ibexa;
+namespace Masilia\IbexaAiEditor\Ibexa;
 
 use DOMDocument;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;

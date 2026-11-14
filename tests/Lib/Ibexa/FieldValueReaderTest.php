@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Bundle;
+namespace Masilia\IbexaAiEditor\Tests\Lib\Ibexa;
 
 use DOMDocument;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
@@ -11,7 +11,7 @@ use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\FieldTypeMatrix\FieldType\Value as MatrixValue;
 use Ibexa\FieldTypeMatrix\FieldType\Value\Row;
-use Masilia\Bundle\IbexaAiEditor\Ibexa\FieldValueReader;
+use Masilia\IbexaAiEditor\Ibexa\FieldValueReader;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

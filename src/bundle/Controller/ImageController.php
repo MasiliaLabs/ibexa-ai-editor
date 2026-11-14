@@ -7,7 +7,7 @@ namespace Masilia\Bundle\IbexaAiEditor\Controller;
 use Masilia\Contracts\IbexaAi\Http\ApiRequest;
 use Masilia\Contracts\IbexaAi\Security\Access;
 use Masilia\Contracts\IbexaAi\Security\RequiresAccess;
-use Masilia\Bundle\IbexaAiEditor\Ibexa\ContentContextReader;
+use Masilia\IbexaAiEditor\Ibexa\ContentContextReader;
 use Masilia\Contracts\IbexaAi\Api\ApiError;
 use Masilia\IbexaAiEditor\Suggestion\PromptText;
 use Masilia\Contracts\IbexaAi\Image\ImageGenerator;

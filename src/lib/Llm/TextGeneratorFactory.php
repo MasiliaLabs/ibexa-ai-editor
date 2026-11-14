@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\Bundle\IbexaAiEditor\Llm;
+namespace Masilia\IbexaAiEditor\Llm;
 
 use Masilia\Contracts\IbexaAi\Observability\RequestLogger;
 use Masilia\Contracts\IbexaAi\Provider\ChatProviders;

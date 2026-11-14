@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Llm;
+namespace Masilia\IbexaAiEditor\Tests\Lib\Llm;
 
-use Masilia\Bundle\IbexaAiEditor\Llm\NeuronTextGenerator;
+use Masilia\IbexaAiEditor\Llm\NeuronTextGenerator;
 use Masilia\IbexaAiEditor\Suggestion\SuggestionAction;
 use Masilia\IbexaAiEditor\Suggestion\SuggestionRequest;
 use Masilia\IbexaAiEditor\Suggestion\SuggestionService;
@@ -64,7 +64,7 @@ final class NeuronTextGeneratorTest extends TestCase
         $message = new AssistantMessage('Secret answer text');
         $message->setUsage(new \NeuronAI\Chat\Messages\Usage(120, 45));
         $message->setStopReason('stop');
-        $logger = new \Masilia\IbexaAiEditor\Tests\Llm\CollectingRequestLogger();
+        $logger = new \Masilia\IbexaAiEditor\Tests\Lib\Llm\CollectingRequestLogger();
         $generator = new NeuronTextGenerator(new FakeAIProvider($message), $logger, 'minimax', 'MiniMax-M3', 'admin');
 
         $generator->generate('SYSTEM', 'USER');
@@ -81,7 +81,7 @@ final class NeuronTextGeneratorTest extends TestCase
 
     public function testFailureIsLoggedWithTheErrorClassAndRethrown(): void
     {
-        $logger = new \Masilia\IbexaAiEditor\Tests\Llm\CollectingRequestLogger();
+        $logger = new \Masilia\IbexaAiEditor\Tests\Lib\Llm\CollectingRequestLogger();
         $generator = new NeuronTextGenerator(new FakeAIProvider(), $logger, 'openai', 'gpt-x');
 
         try {

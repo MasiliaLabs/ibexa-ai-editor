@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Llm;
+namespace Masilia\IbexaAiEditor\Tests\Lib\Llm;
 
 use Masilia\Contracts\IbexaAi\Observability\RequestLog;
 use Masilia\Contracts\IbexaAi\Observability\RequestLogger;

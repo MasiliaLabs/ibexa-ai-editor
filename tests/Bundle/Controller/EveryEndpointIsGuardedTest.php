@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\IbexaAiEditor\Tests\Bundle;
+namespace Masilia\IbexaAiEditor\Tests\Bundle\Controller;
 
 use Masilia\Contracts\IbexaAi\Security\RequiresAccess;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ final class EveryEndpointIsGuardedTest extends TestCase
     private function actions(): array
     {
         $actions = [];
-        foreach (glob(__DIR__ . '/../../src/bundle/Controller/*Controller.php') ?: [] as $file) {
+        foreach (glob(__DIR__ . '/../../../src/bundle/Controller/*Controller.php') ?: [] as $file) {
             $class = new ReflectionClass('Masilia\\Bundle\\IbexaAiEditor\\Controller\\' . basename($file, '.php'));
             foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                 if ($method->getAttributes(Route::class) !== []) {

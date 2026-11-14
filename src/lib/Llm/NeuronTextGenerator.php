@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masilia\Bundle\IbexaAiEditor\Llm;
+namespace Masilia\IbexaAiEditor\Llm;
 
 use Generator;
 use Masilia\IbexaAiEditor\Llm\TextGenerator;
