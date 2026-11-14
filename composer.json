@@ -1,0 +1,63 @@
+{
+    "name": "masilia/ibexa-ai-editor",
+    "description": "AI help inside the Ibexa content editing form: suggestions for each field and image generation",
+    "type": "ibexa-bundle",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.3",
+        "ibexa/admin-ui": "^5.0",
+        "ibexa/core": "^5.0",
+        "masilia/ibexa-ai": "^1.0",
+        "neuron-core/neuron-ai": "^4.1",
+        "psr/log": "^3.0",
+        "symfony/config": "^7.4",
+        "symfony/dependency-injection": "^7.4",
+        "symfony/http-foundation": "^7.4",
+        "symfony/http-kernel": "^7.4",
+        "symfony/routing": "^7.4"
+    },
+    "require-dev": {
+        "ibexa/fieldtype-matrix": "^5.0",
+        "ibexa/fieldtype-richtext": "^5.0",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Masilia\\IbexaAiEditor\\": "src/lib/",
+            "Masilia\\Bundle\\IbexaAiEditor\\": "src/bundle/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Masilia\\IbexaAiEditor\\Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:masilia/ibexa-ai.git"
+        }
+    ],
+    "scripts": {
+        "phpunit": "phpunit",
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "test": [
+            "@phpunit",
+            "@phpstan"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "*": false
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    php:
+        name: PHP ${{ matrix.php }}
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ['8.3', '8.4']
+        steps:
+            - uses: actions/checkout@v4
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: curl, dom, gd, intl, pdo_mysql, sodium, xsl
+                  coverage: none
+            # masilia/ibexa-ai is a private repository: its deploy key is a secret of this one
+            - uses: webfactory/ssh-agent@v0.9.0
+              with:
+                  ssh-private-key: ${{ secrets.MASILIA_PACKAGES_SSH_KEY }}
+            - run: composer validate --strict
+            - run: composer install --no-interaction --prefer-dist --no-progress
+            - run: vendor/bin/phpunit
+            - run: vendor/bin/phpstan analyse --memory-limit=2G --no-progress
+
+    admin:
+        name: Admin scripts
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: src/bundle/Resources/public/admin
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '24'
+            - run: node --experimental-strip-types --import ./test-hooks/register.mjs --test shared/*.test.ts suggest/*.test.ts

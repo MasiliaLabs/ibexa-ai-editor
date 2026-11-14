@@ -1,0 +1,10 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    paths:
+        - src
+    # The remarks that existed when the baseline was made are in phpstan-baseline.neon: fix them and remove them from it,
+    # never add to it. A new remark fails the build.
+    reportUnmatchedIgnoredErrors: true

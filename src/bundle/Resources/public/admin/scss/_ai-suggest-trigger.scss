@@ -1,0 +1,42 @@
+// The AI button the injector (js/ai-suggest/*) adds next to the fields of the content edit form.
+// Positioning only: the look comes from Ibexa's own .ibexa-btn classes.
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ai-suggest-trigger {
+    margin-left: calculateRem(8px);
+    vertical-align: middle;
+
+    .ibexa-icon {
+        fill: none;
+        stroke: currentColor;
+    }
+}
+
+// Inside the rows of a SEO metadata collection.
+.ai-suggest-trigger--inline {
+    position: absolute;
+    top: 50%;
+    right: calculateRem(6px);
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: calculateRem(2px) calculateRem(7px);
+
+    &:hover {
+        transform: translateY(-50%) translateX(-1px);
+    }
+
+    &:active {
+        transform: translateY(-50%) scale(0.97);
+    }
+}
+
+// The alt text input of an image field carries the inline trigger.
+.ibexa-field-edit-preview__image-alt {
+    position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ai-suggest-trigger--inline {
+        transition: none !important;
+    }
+}
