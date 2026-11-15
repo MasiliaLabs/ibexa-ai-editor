@@ -9,7 +9,8 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Masilia\Contracts\IbexaAi\Http\CsrfProtectedController;
 use Masilia\IbexaAiEditor\Ibexa\ContentContextReader;
 use Masilia\Contracts\IbexaAi\Api\ApiError;
-use Masilia\IbexaAiEditor\Suggestion\PromptText;
+use Masilia\IbexaAiEditor\Suggestion\ImagePrompt;
+use Masilia\IbexaAiEditor\Suggestion\SiblingField;
 use Masilia\Contracts\IbexaAi\Image\ImageGenerator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,8 +49,9 @@ final class ImageController extends Controller implements CsrfProtectedControlle
     {
         $payload = $request->getPayload()->all();
 
+        // Nothing typed is fine when the item says what to draw (its title, its summary); without either there is nothing to go on.
         $prompt = trim((string) ($payload['prompt'] ?? ''));
-        if ($prompt === '') {
+        if ($prompt === '' && (int) ($payload['contentId'] ?? 0) <= 0 && trim((string) ($payload['contentTitle'] ?? '')) === '') {
             return new JsonResponse(ApiError::validation('Missing required field: prompt')->toArray(), Response::HTTP_BAD_REQUEST);
         }
 
@@ -68,37 +70,30 @@ final class ImageController extends Controller implements CsrfProtectedControlle
     }
 
     /**
+     * The brief for the image model: what the editor typed (or, when nothing was typed, the item itself) as the subject, with
+     * the title, the type and a few lines of what the item says. See ImagePrompt.
+     *
      * @param array<string, mixed> $payload
      */
     private function enrich(array $payload, string $prompt): string
     {
         $contentId = (int) ($payload['contentId'] ?? 0);
-        if ($contentId <= 0) {
-            return $prompt;
-        }
-
-        $content = $this->contents->load($contentId, 'for image generation');
+        $content = $contentId > 0 ? $this->contents->load($contentId, 'for image generation') : null;
         if ($content === null) {
-            return $prompt;
+            // A new content has no stored fields yet: what the form sent is all there is.
+            $siblings = [];
+            foreach ((array) ($payload['siblingFields'] ?? []) as $field) {
+                if (is_array($field) && is_string($field['label'] ?? null) && is_string($field['value'] ?? null)) {
+                    $siblings[] = new SiblingField($field['label'], $field['value']);
+                }
+            }
+
+            return ImagePrompt::build($prompt, (string) ($payload['contentType'] ?? ''), (string) ($payload['contentTitle'] ?? ''), $siblings);
         }
 
         $language = $this->contents->resolveLanguage($content, (string) ($payload['language'] ?? '')) ?? (string) ($payload['language'] ?? '');
         $context = $this->contents->context($content, (string) ($payload['fieldName'] ?? ''), $language);
 
-        $lines = [];
-        if ($context->contentTypeName !== '') {
-            $lines[] = sprintf('Content type: "%s".', PromptText::scrub($context->contentTypeName));
-        }
-        if ($context->title !== '') {
-            $lines[] = sprintf('Content title: "%s".', PromptText::scrub($context->title));
-        }
-        if ($context->siblingFields !== []) {
-            $lines[] = 'Existing field context:';
-            foreach ($context->siblingFields as $sibling) {
-                $lines[] = sprintf('  - %s: "%s"', PromptText::scrub($sibling->label), PromptText::scrub($sibling->value));
-            }
-        }
-
-        return $lines === [] ? $prompt : implode("\n", $lines) . "\n\n" . $prompt;
+        return ImagePrompt::build($prompt, $context->contentTypeName, $context->title, $context->siblingFields);
     }
 }

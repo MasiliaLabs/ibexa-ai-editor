@@ -246,12 +246,12 @@ test('image generation is for image fields, and has its own progress and result'
     assert.equal(hasUnappliedResult(state), true);
 });
 
-test('the image request uses a default description when the prompt is empty, and the chosen ratio', () => {
+test('the image request sends what was typed (nothing: the server describes the subject), and the chosen ratio', () => {
     const state = reducer(opened({ fieldType: 'ibexa_image', currentValue: '' }), { type: 'image.ratio', ratio: '9:16' });
     const body = imageRequestBody(state);
 
     assert.equal(body.size, '9:16');
-    assert.equal(body.prompt, 'Generate a relevant image for this content');
+    assert.equal(body.prompt, '');
     assert.equal(imageRequestBody(reducer(state, { type: 'prompt.changed', prompt: 'A wind farm' })).prompt, 'A wind farm');
 });
 

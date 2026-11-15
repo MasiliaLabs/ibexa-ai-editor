@@ -261,7 +261,8 @@ export function imageRequestBody(state: SuggestState): Record<string, unknown> {
     }
 
     return {
-        prompt: state.prompt.trim() || 'Generate a relevant image for this content',
+        // Nothing typed: the server describes the subject from the content itself (its title and what it says).
+        prompt: state.prompt.trim(),
         size: state.image.ratio,
         contentId: context.contentId || 0,
         language: context.language,
