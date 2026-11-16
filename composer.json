@@ -1,8 +1,30 @@
 {
     "name": "masilia/ibexa-ai-editor",
     "description": "AI help inside the Ibexa content editing form: suggestions for each field and image generation",
+    "keywords": [
+        "ibexa",
+        "ibexa-dxp",
+        "ibexa-5",
+        "symfony-bundle",
+        "ai",
+        "content-editing",
+        "suggestions",
+        "image-generation"
+    ],
+    "homepage": "https://github.com/MasiliaLabs/ibexa-ai-editor",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MasiliaLabs",
+            "homepage": "https://github.com/MasiliaLabs"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/MasiliaLabs/ibexa-ai-editor/issues",
+        "source": "https://github.com/MasiliaLabs/ibexa-ai-editor",
+        "security": "https://github.com/MasiliaLabs/ibexa-ai-editor/security/policy"
+    },
     "type": "ibexa-bundle",
-    "license": "proprietary",
     "require": {
         "php": ">=8.3",
         "ibexa/admin-ui": "^5.0",

@@ -20,10 +20,6 @@ jobs:
                   php-version: ${{ matrix.php }}
                   extensions: curl, dom, gd, intl, pdo_mysql, sodium, xsl
                   coverage: none
-            # masilia/ibexa-ai is a private repository: its deploy key is a secret of this one
-            - uses: webfactory/ssh-agent@v0.9.0
-              with:
-                  ssh-private-key: ${{ secrets.MASILIA_PACKAGES_SSH_KEY }}
             - run: composer validate --strict
             - run: composer install --no-interaction --prefer-dist --no-progress
             - run: vendor/bin/phpunit
@@ -40,4 +36,5 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: '24'
+            # The tests need no package: Node reads the TypeScript sources as they are.
             - run: node --experimental-strip-types --import ./test-hooks/register.mjs --test shared/*.test.ts suggest/*.test.ts
