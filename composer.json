@@ -58,7 +58,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:masilia/ibexa-ai.git"
+            "url": "git@github.com:MasiliaLabs/ibexa-ai.git"
         }
     ],
     "scripts": {
