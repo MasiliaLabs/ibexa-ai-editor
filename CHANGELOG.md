@@ -4,6 +4,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-17
+
 ### Changed
 - Declares the dependencies the code uses directly; examples and test fixtures are neutral.
 
@@ -21,7 +23,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.1...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...HEAD
+[0.2.2]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/MasiliaLabs/ibexa-ai-editor/releases/tag/0.1.0
