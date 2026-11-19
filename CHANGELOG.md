@@ -4,6 +4,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-11-19
+
 ### Fixed
 - Install docs: the admin is built with `php bin/console ibexa:encore:compile` (`yarn encore dev --config-name ibexa` does not exist on a blank project); README and skill corrected.
 
@@ -34,7 +36,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.4...HEAD
+[0.2.4]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.0...0.2.1
