@@ -58,6 +58,24 @@ composer require masilia/ibexa-ai-editor
 
    Inside DDEV, prefix each command with `ddev exec`. The admin build is `ibexa:encore:compile`: `yarn encore dev --config-name ibexa` does not work ("Configuration with the name ibexa was not found"), and a plain `yarn encore dev` does not build the admin on a project that has not merged the Ibexa configuration into its `webpack.config.js`.
 
+### With Symfony Flex
+
+The Masilia recipes do the first steps for you. Add their endpoint once to the `composer.json` of your project, after the one of Ibexa:
+
+```json
+"extra": {
+    "symfony": {
+        "endpoint": [
+            "https://api.github.com/repos/ibexa/recipes/contents/index.json?ref=flex/main",
+            "https://api.github.com/repos/MasiliaLabs/recipes/contents/index.json?ref=flex/main",
+            "flex://defaults"
+        ]
+    }
+}
+```
+
+Then `composer require masilia/ibexa-ai-editor` enables the bundle and writes `config/routes/masilia_ibexa_ai_editor.yaml`. What is left is yours: the admin build (`masilia/ibexa-ai` must be set up first). The manual steps above and below stay valid.
+
 ## Usage
 
 Edit a content in the admin. Open the AI help of a field, pick an action or write a prompt, read the suggestion as it streams, and accept it into the field. Image generation needs a provider that supports images (set its image model in **AI Assistant**).

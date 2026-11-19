@@ -10,6 +10,8 @@ AI help next to each field of the Ibexa content edit form: pick an action (the s
 ## Install
 `masilia/ibexa-ai` must work first. Then `composer require masilia/ibexa-ai-editor`, enable `MasiliaIbexaAiEditorBundle`, import `@MasiliaIbexaAiEditorBundle/Resources/config/routes.yaml`, `yarn ibexa-generate-tsconfig` then `php bin/console ibexa:encore:compile` (not `yarn encore dev --config-name ibexa`: that config does not exist on a blank project) (inside DDEV: `ddev exec`), `cache:clear`.
 
+With the Masilia recipes endpoint in the `composer.json` (`https://api.github.com/repos/MasiliaLabs/recipes/contents/index.json?ref=flex/main` in `extra.symfony.endpoint`, after Ibexa's), `composer require` already enables the bundle and writes the route and config files (see the README, section *With Symfony Flex*); then do what is left. Without the endpoint, do everything by hand.
+
 ## Operate
 - The provider that answers for the siteaccess in **AI Assistant** is the one used here. Image generation needs a provider with an image model (set it in that page).
 - Routes belong to the admin siteaccess group and use the admin CSRF token and Ibexa access checks.
