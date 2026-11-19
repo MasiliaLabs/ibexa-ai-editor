@@ -4,6 +4,9 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+### Fixed
+- Install docs: the admin is built with `php bin/console ibexa:encore:compile` (`yarn encore dev --config-name ibexa` does not exist on a blank project); README and skill corrected.
+
 ## [0.2.3] - 2026-11-19
 
 ### Added

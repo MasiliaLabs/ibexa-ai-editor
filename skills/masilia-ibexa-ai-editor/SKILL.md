@@ -8,7 +8,7 @@ description: Install and troubleshoot masilia/ibexa-ai-editor, the AI help insid
 AI help next to each field of the Ibexa content edit form: pick an action (the server applies its own instruction and faithfulness rules) or write a prompt; the text streams into a modal; rich text is sanitised before it reaches the editor. Image fields can generate a picture from a brief built from the content. It uses the providers and rules of `masilia/ibexa-ai` **only through its contracts**.
 
 ## Install
-`masilia/ibexa-ai` must work first. Then `composer require masilia/ibexa-ai-editor`, enable `MasiliaIbexaAiEditorBundle`, import `@MasiliaIbexaAiEditorBundle/Resources/config/routes.yaml`, `yarn ibexa-generate-tsconfig && yarn encore dev --config-name ibexa` (inside DDEV: `ddev exec`), `cache:clear`.
+`masilia/ibexa-ai` must work first. Then `composer require masilia/ibexa-ai-editor`, enable `MasiliaIbexaAiEditorBundle`, import `@MasiliaIbexaAiEditorBundle/Resources/config/routes.yaml`, `yarn ibexa-generate-tsconfig` then `php bin/console ibexa:encore:compile` (not `yarn encore dev --config-name ibexa`: that config does not exist on a blank project) (inside DDEV: `ddev exec`), `cache:clear`.
 
 ## Operate
 - The provider that answers for the siteaccess in **AI Assistant** is the one used here. Image generation needs a provider with an image model (set it in that page).
