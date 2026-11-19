@@ -4,6 +4,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.2.5] - 2026-11-19
+
 ### Added
 - Docs: a *With Symfony Flex* section in the README and in the skill: the Masilia recipes (`MasiliaLabs/recipes`) enable the bundle and write its route and config files on `composer require`.
 
@@ -39,7 +41,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.4...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.5...HEAD
+[0.2.5]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.1...0.2.2
