@@ -4,6 +4,14 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-19
+
+### Added
+- An agent skill, `skills/masilia-ibexa-ai-editor`, for AI coding agents that work with the package; the README says how to install it.
+
+### Changed
+- The Masilia dependencies come from Packagist: the `repositories` entries of `composer.json` are gone.
+
 ## [0.2.2] - 2026-11-17
 
 ### Changed
@@ -23,7 +31,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...HEAD
+[0.2.3]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.1.0...0.2.0
