@@ -4,6 +4,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.2.6] - 2026-11-20
+
 ### Added
 - Docs: a *Stay informed* section in the README: how to be told of new releases (GitHub Watch, the releases feed, `composer outdated`, Dependabot) and where to read what changes.
 
@@ -44,7 +46,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.5...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.6...HEAD
+[0.2.6]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.5...0.2.6
 [0.2.5]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.2...0.2.3
