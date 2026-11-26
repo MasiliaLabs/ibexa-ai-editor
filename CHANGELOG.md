@@ -4,8 +4,11 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-26
+
 ### Changed
-- `masilia/ibexa-admin-kit` is a direct requirement (it was installed through `masilia/ibexa-ai`), and the copies of its helpers in `shared/` (`ids`, `icons`, `notify`, `admin`) are gone: the suggestion window imports the kit's, with `csrfHeaders` for the requests that carried only the token. **It needs the release of the kit that has them** (`masilia/ibexa-admin-kit` after 0.1.6): the constraint is raised then.
+- **Breaking:** requires `masilia/ibexa-admin-kit` `^0.2` (it was `^0.1.6`); update the two together, see [UPGRADE.md](UPGRADE.md). It also works with `masilia/ibexa-ai` 3.
+- `masilia/ibexa-admin-kit` is a direct requirement (it was installed through `masilia/ibexa-ai`), and the copies of its helpers in `shared/` (`ids`, `icons`, `notify`, `admin`) are gone: the suggestion window imports the kit's, with `csrfHeaders` for the requests that carried only the token. It needs `masilia/ibexa-admin-kit` `^0.2`.
 
 ## [0.2.6] - 2026-11-20
 
@@ -49,7 +52,8 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 First release: split from `masilia/ibexa-ai`. AI help in the content editing form: a suggestion for each field and image generation. It uses only the contracts of the OS.
 
-[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.6...HEAD
+[Unreleased]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.6...0.3.0
 [0.2.6]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.5...0.2.6
 [0.2.5]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/MasiliaLabs/ibexa-ai-editor/compare/0.2.3...0.2.4
