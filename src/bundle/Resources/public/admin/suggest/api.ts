@@ -2,7 +2,7 @@
  * HTTP calls of the suggestion modal. Routes are defined by SuggestionController and ImageController.
  */
 
-import { adminHeaders, route } from '../shared/admin';
+import { csrfHeaders, route } from '@masilia-admin-kit/admin';
 import type { GeneratedImage, Language } from './types';
 
 /**
@@ -13,7 +13,7 @@ export function openSuggestionStream(body: Record<string, unknown>, signal: Abor
     return fetch(route('masilia.ibexa_ai.suggest_stream'), {
         method: 'POST',
         credentials: 'same-origin',
-        headers: adminHeaders({ 'Content-Type': 'application/json', Accept: 'text/event-stream' }),
+        headers: csrfHeaders({ 'Content-Type': 'application/json', Accept: 'text/event-stream' }),
         body: JSON.stringify(body),
         signal,
     });
@@ -23,7 +23,7 @@ export async function requestImage(body: Record<string, unknown>, signal: AbortS
     const response = await fetch(route('masilia.ibexa_ai.generate_image'), {
         method: 'POST',
         credentials: 'same-origin',
-        headers: adminHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' }),
+        headers: csrfHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' }),
         body: JSON.stringify(body),
         signal,
     });

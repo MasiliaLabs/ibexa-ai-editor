@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ACTIONS, hasContent, unavailableReason } from '../actions';
 import type { ActionId } from '../actions';
-import { Button } from '../../shared/ids';
+import { Button } from '@masilia-admin-kit/ids';
 import type { FieldContext } from '../types';
 
 interface ActionBarProps {

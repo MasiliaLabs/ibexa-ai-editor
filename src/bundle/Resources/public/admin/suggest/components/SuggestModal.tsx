@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-import { AltRadiosListField, AssetsProvider, Button, Icon } from '../../shared/ids';
-import { iconPath } from '../../shared/icons';
+import { AltRadiosListField, AssetsProvider, Button, Icon } from '@masilia-admin-kit/ids';
+import { iconPath } from '@masilia-admin-kit/icons';
 import { FIELD_LABELS, offersImageGeneration } from '../actions';
 import { canGenerate, generateBlocker, isBusy } from '../state';
 import { useSuggest } from '../useSuggest';

@@ -4,6 +4,9 @@ All notable changes to `masilia/ibexa-ai-editor` are documented here. The format
 
 ## [Unreleased]
 
+### Changed
+- `masilia/ibexa-admin-kit` is a direct requirement (it was installed through `masilia/ibexa-ai`), and the copies of its helpers in `shared/` (`ids`, `icons`, `notify`, `admin`) are gone: the suggestion window imports the kit's, with `csrfHeaders` for the requests that carried only the token. **It needs the release of the kit that has them** (`masilia/ibexa-admin-kit` after 0.1.6): the constraint is raised then.
+
 ## [0.2.6] - 2026-11-20
 
 ### Added

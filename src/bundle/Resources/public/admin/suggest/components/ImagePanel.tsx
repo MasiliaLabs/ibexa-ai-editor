@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '../../shared/ids';
+import { Button } from '@masilia-admin-kit/ids';
 import { IMAGE_RATIOS } from '../state';
 import type { ImageState } from '../state';
 
